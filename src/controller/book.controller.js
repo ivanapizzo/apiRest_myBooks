@@ -85,10 +85,10 @@ async function getBooksById (req, res) {
 
 async function postBooks (req, res) {
 
-    let sql = `INSERT INTO book (title, type, author, price, photo) VALUES (?,?,?,?,?);`
+    let sql = `INSERT INTO book (id_user, title, type, author, price, photo) VALUES (?,?,?,?,?,?);`
 
-    const {title, type, author, price, photo} = req.body
-    const params = [title, type, author, price, photo] 
+    const {id_user, title, type, author, price, photo} = req.body
+    const params = [id_user, title, type, author, price, photo] 
 
     console.log(sql)
 
@@ -107,17 +107,17 @@ async function postBooks (req, res) {
 
 async function putBooks (req, res) {
 
-    let sql = `UPDATE book SET title = COALESCE(?, title), type = COALESCE(?, type), author = COALESCE (?, author), price = COALESCE (?, price), photo = COALESCE (?, photo) WHERE id_book = ? AND id_user = ?;`
+    let sql = `UPDATE book SET title = COALESCE(?, title), type = COALESCE(?, type), author = COALESCE (?, author), price = COALESCE (?, price), photo = COALESCE (?, photo) WHERE id_user = ? AND id_book = ?;`
     
-    const {id_book, id_user, title, type, author, price, photo} = req.body;
+    const {id_user, id_book, title, type, author, price, photo} = req.body;
     const params = [
                     title? title: null, 
                     type? type: null, 
                     author? author: null,
                     price? price: null, 
                     photo? photo:null,
-                    id_book? id_book: null,
                     id_user? id_user: null, 
+                    id_book? id_book: null,
                     ]
 
     console.log(sql)
